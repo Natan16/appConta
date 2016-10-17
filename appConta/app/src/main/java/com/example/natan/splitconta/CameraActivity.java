@@ -2,6 +2,7 @@ package com.example.natan.splitconta;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -10,6 +11,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -78,6 +80,25 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
                 button1.setClickable(false);
                 button1.setVisibility(View.INVISIBLE);  //<-----HIDE HERE
                 camera.takePicture(null, null, mPicture);
+
+                //EditText editText = (EditText) findViewById(R.id.edit_message);
+               // String message = editText.getText().toString();
+                //Handler h = new Handler();
+/*                try {
+                    this.wait(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }*/
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        // Actions to do after 10 seconds
+                        Intent intent = new Intent(CameraActivity.this,BillActivity.class);
+                        intent.putExtra("texto","E aí, maxo!");
+                        startActivity(intent);
+                    }
+                }, 2000);
+
 
             }
 
