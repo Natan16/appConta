@@ -1,5 +1,6 @@
 package com.example.natan.splitconta;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -115,12 +117,14 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
 
 
 
+    @TargetApi(Build.VERSION_CODES.ECLAIR)
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
         if(previewRunning){
             camera.stopPreview();
         }
+        //camera = Camera.open(0);
         if ( camera == null) Log.d("CAMERA","EH NULL");
         Camera.Parameters camParams = camera.getParameters();
         Camera.Size size = camParams.getSupportedPreviewSizes().get(0);
@@ -137,7 +141,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
 
     public void surfaceCreated(SurfaceHolder holder) {
         try{
-            camera=Camera.open();
+            camera=Camera.open(0);
         }catch(Exception e){
             e.printStackTrace();
             Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
