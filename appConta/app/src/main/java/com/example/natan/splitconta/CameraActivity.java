@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
-import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -17,7 +16,6 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -50,14 +48,14 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
     private FileOutputStream fos;
     private File dir_image2,dir_image;
     private RelativeLayout CamView;
-
+    private TessOCR tessOCR;
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
-
+        AssetManager assetManager = getAssets();
+        tessOCR = new TessOCR(assetManager);
 
         CamView = (RelativeLayout) findViewById(R.id.camview);
 
@@ -69,9 +67,14 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
 
 
         camera_image = (ImageView) findViewById(R.id.camera_image);
+        tessOCR = new TessOCR(assetManager);
+        if ( bmp != null) {
+            String result = tessOCR.getOCRResult(bmp);
+            Toast.makeText(this, result,
+                    Toast.LENGTH_SHORT).show();
+        }
 
-
-        button1.setOnClickListener(new OnClickListener()
+        button1.setOnClickListener(new View.OnClickListener()
         {
 
             public void onClick(View v)
@@ -89,10 +92,12 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }*/
+
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         // Actions to do after 10 seconds
+
                         Intent intent = new Intent(CameraActivity.this,BillActivity.class);
                         intent.putExtra("texto","E aí, maxo!");
                         startActivity(intent);
@@ -162,15 +167,15 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
         bmp = Bitmap.createBitmap(CamView.getDrawingCache());
         CamView.setDrawingCacheEnabled(false);
         bos = new ByteArrayOutputStream();
-        bmp.compress(CompressFormat.JPEG, 100, bos);
+        //bmp.compress(CompressFormat.JPEG, 100, bos);
         byte[] bitmapdata = bos.toByteArray();
         fis2 = new ByteArrayInputStream(bitmapdata);
 
         String picId=String.valueOf(nu);
-        String myfile="MyImage"+picId+".bitmap";
+        String myfile="MyImage"+picId+".bmp";
 
         dir_image = new  File(Environment.getExternalStorageDirectory()+
-                File.separator+"My Custom Folder");
+                File.separator + "My Custom Folder");
         dir_image.mkdirs();
 
         try {
@@ -185,9 +190,11 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
             fis2.close();
             fos.close();
 
-            Toast.makeText(getApplicationContext(),
-                    "The file is saved at :/My Custom Folder/"+"MyImage"+picId+".jpeg",Toast.LENGTH_LONG).show();
-
+            /*Toast.makeText(getApplicationContext(),
+                    "The file is saved at :/My Custom Folder/"+"MyImage"+picId+".jpeg",Toast.LENGTH_LONG).show();*/
+            String result = tessOCR.getOCRResult(bmp);
+            Toast.makeText(this, result,
+                    Toast.LENGTH_SHORT).show();
             bmp1 = null;
             camera_image.setImageBitmap(bmp1);
             camera.startPreview();
@@ -202,7 +209,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
 
     }
 
-    private PictureCallback mPicture = new PictureCallback() {
+    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
 
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
@@ -211,7 +218,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
             dir_image2.mkdirs();
 
 
-            File tmpFile = new File(dir_image2,"TempImage.jpg");
+            File tmpFile = new File(dir_image2,"TempImage.bmp");
             try {
                 fos = new FileOutputStream(tmpFile);
                 fos.write(data);
