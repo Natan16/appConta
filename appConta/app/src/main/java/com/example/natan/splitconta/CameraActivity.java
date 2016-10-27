@@ -62,6 +62,8 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
         CamView = (RelativeLayout) findViewById(R.id.camview);
 
         SurView = (SurfaceView)findViewById(R.id.sview);
+        if ( SurView == null)
+            Log.d("SURVIEW", "EH NULL");
         camHolder = SurView.getHolder();
         camHolder.addCallback(this);
         camHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -69,11 +71,12 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
 
 
         camera_image = (ImageView) findViewById(R.id.camera_image);
-        tessOCR = new TessOCR(assetManager);
+        //tessOCR = new TessOCR(assetManager);
         if ( bmp != null) {
             String result = tessOCR.getOCRResult(bmp);
             Toast.makeText(this, result,
                     Toast.LENGTH_SHORT).show();
+            Log.d("RESULTADO", result);
         }
 
         button1.setOnClickListener(new View.OnClickListener()
@@ -197,8 +200,9 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
             /*Toast.makeText(getApplicationContext(),
                     "The file is saved at :/My Custom Folder/"+"MyImage"+picId+".jpeg",Toast.LENGTH_LONG).show();*/
             String result = tessOCR.getOCRResult(bmp);
-            Toast.makeText(this, result,
+           Toast.makeText(this, result,
                     Toast.LENGTH_SHORT).show();
+            Log.d("RESULTADO" , result);
             bmp1 = null;
             camera_image.setImageBitmap(bmp1);
             camera.startPreview();
