@@ -12,7 +12,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
-
         <LinearLayout
             android:id="@+id/layoutHead"
             android:layout_width="match_parent"
@@ -49,6 +48,7 @@
                 android:textSize="15sp"
                 android:text="Parc."/>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layoutRow1"
             android:layout_width="match_parent"

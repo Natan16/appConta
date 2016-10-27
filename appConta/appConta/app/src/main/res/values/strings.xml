@@ -21,32 +21,4 @@
     <string name="s">0</string>
     <string name="t">0</string>
     <string name="result">0</string>
-    <string-array name="nameProducts">
-        <item>@string/a</item>
-        <item>@string/b</item>
-        <item>@string/c</item>
-        <item>@string/d</item>
-        <item>@string/e</item>
-    </string-array>
-    <string-array name="totalProductsNumbers">
-        <item>@string/f</item>
-        <item>@string/g</item>
-        <item>@string/h</item>
-        <item>@string/i</item>
-        <item>@string/j</item>
-    </string-array>
-    <string-array name="priceOneProducts">
-        <item>@string/k</item>
-        <item>@string/l</item>
-        <item>@string/m</item>
-        <item>@string/n</item>
-        <item>@string/o</item>
-    </string-array>
-    <string-array name="priceParcials">
-        <item>@string/p</item>
-        <item>@string/q</item>
-        <item>@string/r</item>
-        <item>@string/s</item>
-        <item>@string/t</item>
-    </string-array>
 </resources>

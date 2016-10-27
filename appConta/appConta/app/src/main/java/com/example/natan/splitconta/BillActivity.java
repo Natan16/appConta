@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.EditText;
 import java.text.DecimalFormat;
@@ -17,14 +18,9 @@ public class BillActivity extends Activity {
             numberSt+='0';
         return Double.parseDouble(numberSt);
     }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bill);
-        final int quantidades[]=new int[]{5,5,5,5,3};
-        String descricoes[]=new String[]{"COCA COLA","CERVEJA BHAMA ","X SALADA","PRATO DA CASA","CIGARRO"};
-        final double unitarios[]=new double[]{2,3.5,3.5,8,3.6};
-        for(int i=0;i<5;i++){
+    void addLinearLayouts(String[] descricoes, int[] quantidades, double[] unitarios){
+        int len=descricoes.length;
+        for(int i=0;i<len;i++){
             String ID="nameProduct"+(i+1);
             int id = getResources().getIdentifier(ID, "id", getPackageName());
             TextView textViewToChange = (TextView) findViewById(id);
@@ -42,7 +38,31 @@ public class BillActivity extends Activity {
             String unitario=twoDig.format(unitarios[i]);
             textViewToChange.setText(unitario);
         }
-        for(int i=0;i<5;i++){
+    }
+    void setLabels(String[] descricoes, int[] quantidades, double[] unitarios){
+        int len=descricoes.length;
+        for(int i=0;i<len;i++){
+            String ID="nameProduct"+(i+1);
+            int id = getResources().getIdentifier(ID, "id", getPackageName());
+            TextView textViewToChange = (TextView) findViewById(id);
+            textViewToChange.setText(descricoes[i]);
+            //-------------------------------------------------------------------------
+            ID="totalProductsNumber"+(i+1);
+            id = getResources().getIdentifier(ID, "id", getPackageName());
+            textViewToChange = (TextView) findViewById(id);
+            textViewToChange.setText(Integer.toString(quantidades[i]));
+            //-------------------------------------------------------------------------
+            DecimalFormat twoDig=new DecimalFormat("0.00");
+            ID="priceOneProduct"+(i+1);
+            id = getResources().getIdentifier(ID, "id", getPackageName());
+            textViewToChange = (TextView) findViewById(id);
+            String unitario=twoDig.format(unitarios[i]);
+            textViewToChange.setText(unitario);
+        }
+    }
+    void setEvents(final int[] quantidades, final double[] unitarios){
+        final int len=quantidades.length;
+        for(int i=0;i<len;i++){
             final int j=i;
             String ID="numberConsumedProducts"+(i+1);
             int id = getResources().getIdentifier(ID, "id", getPackageName());
@@ -69,7 +89,7 @@ public class BillActivity extends Activity {
                     textViewToChange.setText(parcPrice);
                     //-----------------------------------------------------------------------
                     double auxSum=0;
-                    for(int k=0;k<5;k++){
+                    for(int k=0;k<len;k++){
                         final int m=k;
                         String ID="priceParcial"+(k+1);
                         int id = getResources().getIdentifier(ID, "id", getPackageName());
@@ -91,11 +111,17 @@ public class BillActivity extends Activity {
                 }
             });
         }
-        /*
-        Resources res = getResources();
-        String[] nameProducts = res.getStringArray(R.array.nameProducts);
-        for(int i=0;i<nameProducts.length;i++){
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bill);
+        final int quantidades[]=new int[]{5,5,5,5,3};
+        String descricoes[]=new String[]{"COCA COLA","CERVEJA BHAMA ","X SALADA","PRATO DA CASA","CIGARRO"};
+        final double unitarios[]=new double[]{2,3.5,3.5,8,3.6};
 
-        }*/
+        addLinearLayouts(descricoes,quantidades,unitarios);
+        //setLabels(descricoes,quantidades,unitarios);
+        setEvents(quantidades,unitarios);
     }
 }
