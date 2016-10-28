@@ -1,6 +1,8 @@
 package com.example.natan.splitconta;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import java.util.List;
 public class YourAdapter extends ArrayAdapter<Item> {
     Context context;
     List<Item> data;
+    View vi;
     private static LayoutInflater inflater = null;
     public YourAdapter(Context context, ArrayList<Item> data) {
         super(context, 0, data);
@@ -28,7 +31,14 @@ public class YourAdapter extends ArrayAdapter<Item> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
-
+    protected double formatDouble(String numberSt){
+        if(numberSt.isEmpty())
+            return 0;
+        int len=numberSt.length();
+        if(numberSt.charAt(len-1)=='.')
+            numberSt+='0';
+        return Double.parseDouble(numberSt);
+    }
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
@@ -47,30 +57,63 @@ public class YourAdapter extends ArrayAdapter<Item> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        // TODO método no gerenciador do banco de dados pra recuperar os Songs a partir do id da songList
-        Item  item = getItem(position);
-        View vi = convertView;
+        vi = convertView;
         if (vi == null)
             vi = inflater.inflate(R.layout.row, null);
-        //int inic_pos = PlaylistFragment.videos_pos.get(position);
-        //TextView pos = (TextView) vi.findViewById(R.id.cur_Pos);
-        //pos.setText(new Integer(inic_pos).toString());
-        //int inic_pos =  Integer.parseInt(pos.getText().toString());
-
+        final Item  item = getItem(position);
         final View finalVi = vi;
         DecimalFormat twoDig=new DecimalFormat("0.00");
         String aux = twoDig.format(item.valor);
         //ResourceId rId = getItem(position).get(inic_pos).getId();
         TextView oneProduct = (TextView) vi.findViewById(R.id.priceOneProduct);
         oneProduct.setText(aux);
-        EditText priceOne = (EditText) vi.findViewById(R.id.numberConsumedProducts);
+        final EditText priceOne = (EditText) vi.findViewById(R.id.numberConsumedProducts);
         priceOne.setText("");
         TextView desc = (TextView) vi.findViewById(R.id.nameProduct);
         desc.setText(item.desc);
         TextView qtde = (TextView) vi.findViewById(R.id.totalProductsNumber);
-        //if ( qtde != null)
         qtde.setText(Integer.toString(item.qtde));
+        final TextView parcPrice = (TextView) vi.findViewById(R.id.priceParcial);
+        parcPrice.setText("0");
+        priceOne.addTextChangedListener(new TextWatcher() {
+            String before, on;
+            @Override
+            public void afterTextChanged(Editable s) {
+                double doubleOn = formatDouble(on);
+                double doubleBefore = formatDouble(before);
+                //----------------------------------------------------------------------
+                if (doubleOn > item.qtde) {
+                    priceOne.setText(before);
+                    return;
+                }
+                double numberProducts = formatDouble(s.toString());
+                double parcialPrice = item.valor * numberProducts;
+                DecimalFormat twoDig = new DecimalFormat("0.00");
+                String parcPriceSt = twoDig.format(parcialPrice);
+                parcPrice.setText(parcPriceSt);
+                //-----------------------------------------------------------------------
+                double auxSum = 0;
+                /*for (int k = 0; k < getCount(); k++) {
+                    View auxView=finalVi.findViewById(k);
+                    TextView parcVal = (TextView) auxView.findViewById(R.id.priceParcial);
+                    double parc = formatDouble(parcVal.getText().toString());
+                    auxSum += parc;
+                }
+                String sum = twoDig.format(auxSum);
+                TextView result = (TextView) finalVi.findViewById(R.id.result);
+                result.setText(sum);*/
+            }
 
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                before = priceOne.getText().toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                on = priceOne.getText().toString();
+            }
+        });
         return vi;
     }
 
