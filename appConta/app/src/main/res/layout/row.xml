@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/layoutRow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/totalProductsNumber"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/j"/>
+        <TextView
+            android:id="@+id/nameProduct"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/e"/>
+        <TextView
+            android:id="@+id/priceOneProduct"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/o"/>
+        <EditText
+            android:id="@+id/numberConsumedProducts"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:inputType="numberDecimal"/>
+        <TextView
+            android:id="@+id/priceParcial"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/t"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:fillViewport="false"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/fields"
@@ -15,8 +17,8 @@
 
         <LinearLayout
             android:id="@+id/layoutHead"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/totalProductsNumberHead"
@@ -49,191 +51,20 @@
                 android:textSize="15sp"
                 android:text="Parc."/>
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutRow1"
+
+        <ListView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/totalProductsNumber1"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/f"/>
-            <TextView
-                android:id="@+id/nameProduct1"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/a"/>
-            <TextView
-                android:id="@+id/priceOneProduct1"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/k"/>
-            <EditText
-                android:id="@+id/numberConsumedProducts1"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:inputType="numberDecimal"/>
-            <TextView
-                android:id="@+id/priceParcial1"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/p"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutRow2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/totalProductsNumber2"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/g"/>
-            <TextView
-                android:id="@+id/nameProduct2"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/b"/>
-            <TextView
-                android:id="@+id/priceOneProduct2"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/l"/>
-            <EditText
-                android:id="@+id/numberConsumedProducts2"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:inputType="numberDecimal"/>
-            <TextView
-                android:id="@+id/priceParcial2"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/q"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutRow3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/totalProductsNumber3"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/h"/>
-            <TextView
-                android:id="@+id/nameProduct3"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/c"/>
-            <TextView
-                android:id="@+id/priceOneProduct3"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/m"/>
-            <EditText
-                android:id="@+id/numberConsumedProducts3"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:inputType="numberDecimal"/>
-            <TextView
-                android:id="@+id/priceParcial3"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/r"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutRow4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/totalProductsNumber4"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/i"/>
-            <TextView
-                android:id="@+id/nameProduct4"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/d"/>
-            <TextView
-                android:id="@+id/priceOneProduct4"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/n"/>
-            <EditText
-                android:id="@+id/numberConsumedProducts4"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:inputType="numberDecimal"/>
-            <TextView
-                android:id="@+id/priceParcial4"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/s"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutRow5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/totalProductsNumber5"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/j"/>
-            <TextView
-                android:id="@+id/nameProduct5"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/e"/>
-            <TextView
-                android:id="@+id/priceOneProduct5"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/o"/>
-            <EditText
-                android:id="@+id/numberConsumedProducts5"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:inputType="numberDecimal"/>
-            <TextView
-                android:id="@+id/priceParcial5"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/t"/>
-        </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_weight="1"/>
+
         <LinearLayout
             android:id="@+id/layoutRowResult"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
             <TextView
                 android:id="@+id/labelResult"
                 android:layout_width="120dp"
@@ -249,4 +80,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</ScrollView>
+</LinearLayout>
