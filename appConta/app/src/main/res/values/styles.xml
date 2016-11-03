@@ -16,5 +16,6 @@
     <style name="AppTheme" parent="android:Theme.NoTitleBar.Fullscreen">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
+      <!--  <item name="android:background">@android:color/black</item>-->
     </style>
 </resources>

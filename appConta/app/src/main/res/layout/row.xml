@@ -8,34 +8,50 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <TextView
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:id="@+id/totalProductsNumber"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textSize="15sp"
-            android:text="@string/j"/>
+            android:text="@string/j"
+            android:layout_weight="1"/>
         <TextView
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:id="@+id/nameProduct"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textSize="15sp"
-            android:text="@string/e"/>
+            android:text="@string/e"
+            android:layout_weight="1"/>
         <TextView
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:id="@+id/priceOneProduct"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textSize="15sp"
-            android:text="@string/o"/>
+            android:text="@string/o"
+            android:layout_weight="1"/>
         <EditText
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:id="@+id/numberConsumedProducts"
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textSize="15sp"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:layout_weight="1"/>
+        <!--android:typeface="courier"-->
         <TextView
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:id="@+id/priceParcial"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textSize="15sp"
-            android:text="@string/t"/>
+            android:text="@string/t"
+            android:layout_weight="1"/>
     </LinearLayout>
 </LinearLayout>

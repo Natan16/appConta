@@ -3,9 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="false"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:background="#FFF9C4">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     <LinearLayout
         android:id="@+id/fields"
         android:layout_width="match_parent"
@@ -17,39 +26,44 @@
 
         <LinearLayout
             android:id="@+id/layoutHead"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/totalProductsNumberHead"
-                android:layout_width="40dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:text="Qtd"/>
+                android:text="Qtd"
+                android:layout_weight="1"/>
             <TextView
                 android:id="@+id/nameProductHead"
-                android:layout_width="140dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:text="Descrição"/>
+                android:text="Descrição"
+                android:layout_weight="1"/>
             <TextView
                 android:id="@+id/priceOneProductHead"
-                android:layout_width="40dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:text="Un."/>
+                android:text="Un."
+                android:layout_weight="1"/>
             <TextView
                 android:id="@+id/numberConsumedProductsHead"
-                android:layout_width="55dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:text="Cons."/>
+                android:text="Cons."
+                android:layout_weight="1"/>
             <TextView
                 android:id="@+id/priceParcialHead"
-                android:layout_width="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:text="Parc."/>
+                android:text="Parc."
+                android:layout_weight="1"/>
         </LinearLayout>
 
         <ListView

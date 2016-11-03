@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
@@ -150,6 +152,13 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
             Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
             finish();
         }
+         if(context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)){
+            Camera.Parameters p = camera.getParameters();
+            p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            camera.setParameters(p);
+            //camera.startPreview();
+        }
+        else Log.d("FLASH", "NAO LIGOU");
     }
 
     @Override
@@ -199,10 +208,31 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
 
             /*Toast.makeText(getApplicationContext(),
                     "The file is saved at :/My Custom Folder/"+"MyImage"+picId+".jpeg",Toast.LENGTH_LONG).show();*/
-            String result = tessOCR.getOCRResult(bmp);
-           Toast.makeText(this, result,
-                    Toast.LENGTH_SHORT).show();
-            Log.d("RESULTADO" , result);
+           // Log.d("STORAGE",Environment.getExternalStorageDirectory().toString());
+            //Bitmap bMap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().toString() + "/testImage/conta_boa.bmp");
+
+            //
+            //aqui vai ser feito o préprocessamento
+            Bitmap resized = Bitmap.createScaledBitmap(bmp,(int)(bmp.getWidth()*1.0), (int)(bmp.getHeight()*1.0), true);
+            resized = CameraActivity.createContrast(resized , 50);
+            /*for (int x = 0; x < resized.getWidth(); x++) {
+                for (int y = 0; y < resized.getHeight(); y++) {
+                    //if (resized.getPixel(x, y))
+                        int mColor = resized.getPixel(x, y);
+                        int red = Color.red(mColor);
+                        int green = Color.green(mColor);
+                        int blue = Color.blue(mColor);
+                        if (red > 0 && green > 0 && green/red > 0.90 && red/green > 0.93 && blue/red > 0.74 && blue/red < 0.9 )
+                            resized.setPixel(x, y, Color.rgb(255, 255, 255));
+                        else resized.setPixel(x, y, Color.rgb(0, 0, 0));
+                }
+            }*/
+            String result = tessOCR.getOCRResult(resized);
+            String result_normal = tessOCR.getOCRResult(bmp);
+            /*Toast.makeText(this, result,
+                    Toast.LENGTH_SHORT).show();*/
+            Log.d("RESULTADO CONTRASTE" , result);
+            Log.d("RESULTADO NORMAL" , result_normal);
             bmp1 = null;
             camera_image.setImageBitmap(bmp1);
             camera.startPreview();
@@ -216,7 +246,47 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback{
 
 
     }
+    public static Bitmap createContrast(Bitmap src, double value) {
+        // image size
+        int width = src.getWidth();
+        int height = src.getHeight();
+        // create output bitmap
+        Bitmap bmOut = Bitmap.createBitmap(width, height, src.getConfig());
+        // color information
+        int A, R, G, B;
+        int pixel;
+        // get contrast value
+        double contrast = Math.pow((100 + value) / 100, 2);
 
+        // scan through all pixels
+        for(int x = 0; x < width; ++x) {
+            for(int y = 0; y < height; ++y) {
+                // get pixel color
+                pixel = src.getPixel(x, y);
+                A = Color.alpha(pixel);
+                // apply filter contrast for every channel R, G, B
+                R = Color.red(pixel);
+                R = (int)(((((R / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
+                if(R < 0) { R = 0; }
+                else if(R > 255) { R = 255; }
+
+                G = Color.red(pixel);
+                G = (int)(((((G / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
+                if(G < 0) { G = 0; }
+                else if(G > 255) { G = 255; }
+
+                B = Color.red(pixel);
+                B = (int)(((((B / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
+                if(B < 0) { B = 0; }
+                else if(B > 255) { B = 255; }
+
+                // set new pixel color to output bitmap
+                bmOut.setPixel(x, y, Color.argb(A, R, G, B));
+            }
+        }
+
+        return bmOut;
+    }
     private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
 
         @Override
